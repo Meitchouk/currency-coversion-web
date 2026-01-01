@@ -22,7 +22,7 @@ export function HeaderSection({ title, subtitle, mounted }: HeaderSectionProps) 
           <Title order={1} size="h1" mb="xs">
             {title}
           </Title>
-          <Text c="dimmed" size="lg">
+          <Text style={{ color: 'var(--mantine-color-gray-6)' }} size="lg">
             {subtitle}
           </Text>
         </Box>

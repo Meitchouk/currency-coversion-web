@@ -2,7 +2,8 @@
   "app": {
     "title": "Conversor de Divisas",
     "subtitle": "Tasas de cambio en tiempo real y datos históricos",
-    "poweredBy": "Tasas de cambio actualizadas diariamente • Gratis para usar"
+    "poweredBy": "Tasas de cambio actualizadas diariamente • Gratis para usar",
+    "loading": "Cargando datos de monedas..."
   },
   "alert": {
     "freeRealtime": "Gratis y en Tiempo Real",
@@ -61,6 +62,11 @@
     "label": "Cambiar idioma",
     "english": "Inglés",
     "spanish": "Español"
+  },
+  "settings": {
+    "menu": "Configuración",
+    "language": "Idioma",
+    "theme": "Tema"
   },
   "apiDocs": {
     "title": "Documentación de API",

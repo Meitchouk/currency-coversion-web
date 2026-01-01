@@ -57,7 +57,7 @@ export function Footer() {
                   <IconInfoCircle size={20} style={{ opacity: 0.8 }} />
                   <Text size="sm" fw={700}>{footerLinks.about.label}</Text>
                 </Group>
-                <Text size="xs" c="dimmed" style={{ lineHeight: 1.6 }}>
+                <Text size="xs" style={{ lineHeight: 1.6, color: 'var(--mantine-color-gray-6)' }}>
                   {locale === 'en'
                     ? 'Free currency converter with real-time exchange rates and historical data. Powered by reliable financial data sources.'
                     : 'Conversor de divisas gratuito con tasas de cambio en tiempo real y datos históricos. Impulsado por fuentes de datos financieros confiables.'}
@@ -158,7 +158,7 @@ export function Footer() {
                 {locale === 'en' ? 'About Exchange Rates' : 'Sobre las Tasas de Cambio'}
               </Text>
             </Group>
-            <Text size="xs" c="dimmed" style={{ lineHeight: 1.6 }}>
+            <Text size="xs" style={{ lineHeight: 1.6, color: 'var(--mantine-color-gray-6)' }}>
               {locale === 'en'
                 ? 'Exchange rates are updated daily and sourced from the European Central Bank. Historical data is available for analysis and comparison. Rates may vary slightly from those offered by banks and exchange services due to fees and margins.'
                 : 'Las tasas de cambio se actualizan diariamente y provienen del Banco Central Europeo. Los datos históricos están disponibles para análisis y comparación. Las tasas pueden variar ligeramente de las ofrecidas por bancos y servicios de cambio debido a tarifas y márgenes.'}
@@ -169,7 +169,7 @@ export function Footer() {
 
           {/* Bottom Bar */}
           <Group justify="space-between" align="center" wrap="wrap">
-            <Text size="xs" c="dimmed">
+            <Text size="xs" style={{ color: 'var(--mantine-color-gray-6)' }}>
               © {new Date().getFullYear()} {t.app.title} • {locale === 'en' ? 'Built with' : 'Desarrollado con'} Next.js & Mantine
             </Text>
             <Group gap="xs">
@@ -182,6 +182,7 @@ export function Footer() {
                   variant="light"
                   color="gray"
                   size="lg"
+                  aria-label="Visit GitHub profile"
                 >
                   <IconBrandGithub size={18} />
                 </ActionIcon>
@@ -193,6 +194,7 @@ export function Footer() {
                   variant="light"
                   color="gray"
                   size="lg"
+                  aria-label="Send email"
                 >
                   <IconMail size={18} />
                 </ActionIcon>
@@ -204,6 +206,7 @@ export function Footer() {
                   variant="light"
                   color="blue"
                   size="lg"
+                  aria-label={locale === 'en' ? 'View API documentation' : 'Ver documentación API'}
                 >
                   <IconBook size={18} />
                 </ActionIcon>

@@ -2,7 +2,8 @@
   "app": {
     "title": "Currency Converter",
     "subtitle": "Real-time exchange rates and historical data",
-    "poweredBy": "Exchange rates updated daily • Free to use"
+    "poweredBy": "Exchange rates updated daily • Free to use",
+    "loading": "Loading currency data..."
   },
   "alert": {
     "freeRealtime": "Free & Real-time",
@@ -61,6 +62,11 @@
     "label": "Change language",
     "english": "English",
     "spanish": "Spanish"
+  },
+  "settings": {
+    "menu": "Settings",
+    "language": "Language",
+    "theme": "Theme"
   },
   "apiDocs": {
     "title": "API Documentation",

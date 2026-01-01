@@ -24,4 +24,11 @@ export const theme = createTheme({
     fontWeight: '700',
   },
   defaultRadius: 'md',
+  components: {
+    Loader: {
+      defaultProps: {
+        type: 'ring',
+      },
+    },
+  },
 });

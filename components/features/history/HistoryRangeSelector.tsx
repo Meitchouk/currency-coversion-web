@@ -36,7 +36,7 @@ export function HistoryRangeSelector({
       {(styles) => (
         <Paper shadow="sm" p="md" radius="md" withBorder style={styles}>
           <Stack gap="xs">
-            <Text size="sm" fw={500} c="dimmed">
+            <Text size="sm" fw={500} style={{ color: 'var(--mantine-color-gray-6)' }}>
               <InfoTooltip translationKey="tooltips.historyRange" />
               {translations.label}
             </Text>

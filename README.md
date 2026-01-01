@@ -132,6 +132,8 @@ Powered by [Frankfurter API](https://www.frankfurter.app/) - A free, open-source
 
 MIT License - Open source and free to use.
 
+See [LICENSE](./LICENSE) file for full license text.
+
 ---
 
 **Developer**: [Meitchouk](https://github.com/Meitchouk) | **Repository**: [currency-coversion-web](https://github.com/Meitchouk/currency-coversion-web)

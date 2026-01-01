@@ -1,5 +1,7 @@
 import { DEFAULTS } from '@/lib/constants';
 import dayjs from 'dayjs';
+import 'dayjs/locale/es';
+import 'dayjs/locale/en';
 
 /**
  * Formats a number as currency with locale settings
@@ -16,10 +18,10 @@ export function formatCurrency(
 }
 
 /**
- * Formats a date using dayjs format string
+ * Formats a date using dayjs format string with locale support
  */
-export function formatDate(date: Date | string, format = 'MMM D, YYYY [at] h:mm A'): string {
-  return dayjs(date).format(format);
+export function formatDate(date: Date | string, format = 'MMM D, YYYY [at] h:mm A', locale: 'en' | 'es' = 'en'): string {
+  return dayjs(date).locale(locale).format(format);
 }
 
 /**
