@@ -44,7 +44,8 @@ export function ConversionResult({
     );
   }
 
-  const formattedTimestamp = timestamp ? formatDate(timestamp) : 'N/A';
+  const dateFormat = locale === 'es' ? 'D [de] MMM [de] YYYY, h:mm A' : 'MMM D, YYYY [at] h:mm A';
+  const formattedTimestamp = timestamp ? formatDate(timestamp, dateFormat, locale) : 'N/A';
 
   return (
     <Transition mounted={!loading} transition="fade" duration={ANIMATION_DURATION.SLOW} timingFunction="ease">
