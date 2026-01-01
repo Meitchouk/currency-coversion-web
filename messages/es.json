@@ -91,6 +91,17 @@
     "title": "Tipos de Cambio de {from} a {to} Hoy",
     "titleReverse": "Tipos de Cambio de {to} a {from} Hoy"
   },
+  "multiComparator": {
+    "title": "Comparador Multi-Divisa",
+    "baseCurrency": "Moneda Base",
+    "amount": "Cantidad",
+    "targetCurrencies": "Divisas Objetivo",
+    "selectTargets": "Selecciona divisas para comparar",
+    "showing": "Mostrando {amount} {currency} convertido a {count} divisas",
+    "currency": "Divisa",
+    "equivalence": "Equivalencia",
+    "rate": "Tasa de Cambio"
+  },
   "errors": {
     "loadCurrencies": "No se pudieron mostrar las monedas disponibles. Por favor, recargue la página.",
     "conversion": "No se pudo convertir en este momento. Por favor, inténtelo de nuevo.",

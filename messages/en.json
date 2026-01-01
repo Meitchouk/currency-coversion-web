@@ -91,6 +91,17 @@
     "title": "{from} to {to} Exchange Rates Today",
     "titleReverse": "{to} to {from} Exchange Rates Today"
   },
+  "multiComparator": {
+    "title": "Multi-Currency Comparator",
+    "baseCurrency": "Base Currency",
+    "amount": "Amount",
+    "targetCurrencies": "Target Currencies",
+    "selectTargets": "Select currencies to compare",
+    "showing": "Showing {amount} {currency} converted to {count} currencies",
+    "currency": "Currency",
+    "equivalence": "Equivalence",
+    "rate": "Exchange Rate"
+  },
   "errors": {
     "loadCurrencies": "Unable to show available currencies. Please reload the page.",
     "conversion": "Unable to convert at this time. Please try again.",

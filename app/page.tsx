@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { Container, Stack, Box, Grid } from '@mantine/core';
 import { SettingsMenu, HeaderSection } from '@/components/layout';
 import { InfoAlert, ErrorAlert, RefreshButton, FooterText, CustomLoader } from '@/components/ui';
-import { ConversionFormSkeleton, ConversionForm, ConversionResult, QuickConversionTable } from '@/components/features/conversion';
+import { ConversionFormSkeleton, ConversionForm, ConversionResult, QuickConversionTable, MultiCurrencyComparator } from '@/components/features/conversion';
 import { HistoryRangeSelector, HistoryChart } from '@/components/features/history';
 import { useCurrencies, useConversion, useHistoricalData, useMounted } from '@/hooks';
 import { DEFAULTS } from '@/lib/constants';
@@ -173,6 +173,16 @@ export default function HomePage() {
               />
             </Grid.Col>
           </Grid>
+        )}
+
+        {/* Multi-Currency Comparator */}
+        {currencies.length > 0 && (
+          <MultiCurrencyComparator
+            currencies={currencies}
+            baseCurrency={fromCurrency || 'USD'}
+            targetCurrencies={['EUR', 'GBP', 'JPY', 'CAD', 'AUD']}
+            defaultAmount={100}
+          />
         )}
 
         {/* Refresh Button */}
