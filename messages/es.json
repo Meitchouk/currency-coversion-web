@@ -1,0 +1,90 @@
+{
+  "app": {
+    "title": "Conversor de Divisas",
+    "subtitle": "Tasas de cambio en tiempo real y datos históricos",
+    "poweredBy": "Tasas de cambio actualizadas diariamente • Gratis para usar"
+  },
+  "alert": {
+    "freeRealtime": "Gratis y en Tiempo Real",
+    "cacheInfo": "Las tasas de cambio se actualizan cada hora. La información que ves siempre está actualizada y se renueva automáticamente."
+  },
+  "form": {
+    "from": "De",
+    "to": "A",
+    "amount": "Cantidad",
+    "swap": "Intercambiar",
+    "selectCurrency": "Seleccionar moneda",
+    "enterAmount": "Ingrese la cantidad a convertir"
+  },
+  "tooltips": {
+    "fromCurrency": "Elige la moneda desde la que quieres convertir (ej: USD, EUR)",
+    "toCurrency": "Elige la moneda a la que quieres convertir (ej: EUR, JPY)",
+    "amount": "Ingresa la cantidad de dinero que quieres convertir (ej: 100, 250.50)",
+    "swap": "Intercambia rápidamente las monedas para convertir en dirección opuesta",
+    "refresh": "Obtén las tasas de cambio más recientes para tus monedas seleccionadas",
+    "historyRange": "Selecciona qué tan atrás quieres ver el historial de tasas de cambio",
+    "chartZoomIn": "Agranda el gráfico para ver más detalles",
+    "chartZoomOut": "Reduce el gráfico para ver una vista compacta",
+    "chartReset": "Vuelve el gráfico a su tamaño y vista original",
+    "chartScale": "Estándar: Muestra el rango completo. Detallada: Se enfoca en las variaciones de tasa"
+  },
+  "actions": {
+    "refresh": "Actualizar Tasas",
+    "refreshing": "Actualizando..."
+  },
+  "chart": {
+    "title": "Historial de Tasa de Cambio: {from} a {to}",
+    "showing": "Mostrando últimos {days} días",
+    "noData": "No hay historial disponible para estas monedas",
+    "zoomIn": "Agrandar",
+    "zoomOut": "Reducir",
+    "reset": "Restablecer Tamaño",
+    "yAxisScale": "Vista:",
+    "scaleAuto": "Estándar",
+    "scaleFit": "Detallada"
+  },
+  "history": {
+    "range": "Mostrar Historial De",
+    "7days": "7 Días",
+    "30days": "30 Días",
+    "90days": "90 Días",
+    "6months": "6 Meses",
+    "1year": "1 Año"
+  },
+  "theme": {
+    "light": "Cambiar a tema claro",
+    "dark": "Cambiar a tema oscuro",
+    "lightMode": "Tema claro",
+    "darkMode": "Tema oscuro"
+  },
+  "language": {
+    "label": "Cambiar idioma",
+    "english": "Inglés",
+    "spanish": "Español"
+  },
+  "apiDocs": {
+    "title": "Documentación de API",
+    "description": "Ver la documentación técnica para desarrolladores",
+    "pageTitle": "Documentación de API del Conversor de Divisas",
+    "pageSubtitle": "API gratuita y abierta para conversión de divisas en tiempo real y tasas de cambio históricas",
+    "backToApp": "Volver a la Aplicación",
+    "github": "GitHub",
+    "loading": "Cargando documentación de API...",
+    "aboutTitle": "Acerca de esta API",
+    "aboutText": "Esta API proporciona endpoints para conversión de divisas, tasas de cambio históricas e información de monedas. Todos los datos se almacenan durante 1 hora para optimizar el rendimiento. La API es gratuita y no requiere autenticación.",
+    "rateLimitsTitle": "Límites de Uso",
+    "rateLimitsText": "Actualmente no se aplican límites de uso. Sin embargo, por favor use la API de manera responsable. Los datos se almacenan durante 1 hora, por lo que solicitudes repetidas en ese período devolverán resultados almacenados."
+  },
+  "conversion": {
+    "loading": "Convirtiendo...",
+    "result": "{amount} {from} equivale a",
+    "rate": "Tasa: 1 {from} = {rate} {to}",
+    "lastUpdated": "Última actualización: {date}"
+  },
+  "errors": {
+    "loadCurrencies": "No se pudieron mostrar las monedas disponibles. Por favor, recargue la página.",
+    "conversion": "No se pudo convertir en este momento. Por favor, inténtelo de nuevo.",
+    "history": "No se pudo mostrar el historial de tasas de cambio.",
+    "generic": "Algo salió mal"
+  }
+}
