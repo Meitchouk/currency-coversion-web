@@ -1,0 +1,90 @@
+{
+  "app": {
+    "title": "Currency Converter",
+    "subtitle": "Real-time exchange rates and historical data",
+    "poweredBy": "Exchange rates updated daily • Free to use"
+  },
+  "alert": {
+    "freeRealtime": "Free & Real-time",
+    "cacheInfo": "Exchange rates are updated every hour. The information you see is always current and refreshed automatically."
+  },
+  "form": {
+    "from": "From",
+    "to": "To",
+    "amount": "Amount",
+    "swap": "Swap",
+    "selectCurrency": "Select currency",
+    "enterAmount": "Enter amount to convert"
+  },
+  "tooltips": {
+    "fromCurrency": "Choose the currency you want to convert from (e.g., USD, EUR)",
+    "toCurrency": "Choose the currency you want to convert to (e.g., EUR, JPY)",
+    "amount": "Enter the amount of money you want to convert (e.g., 100, 250.50)",
+    "swap": "Quickly swap the currencies to convert in the opposite direction",
+    "refresh": "Get the latest exchange rates for your selected currencies",
+    "historyRange": "Select how far back you want to see the exchange rate history",
+    "chartZoomIn": "Make the chart taller to see more detail",
+    "chartZoomOut": "Make the chart shorter to see a compact view",
+    "chartReset": "Return the chart to its original size and view",
+    "chartScale": "Standard: Shows the full range. Detailed: Focuses on the rate variations"
+  },
+  "actions": {
+    "refresh": "Refresh Rates",
+    "refreshing": "Refreshing..."
+  },
+  "chart": {
+    "title": "Exchange Rate History: {from} to {to}",
+    "showing": "Showing last {days} days",
+    "noData": "No history available for these currencies",
+    "zoomIn": "Make Bigger",
+    "zoomOut": "Make Smaller",
+    "reset": "Reset Size",
+    "yAxisScale": "View:",
+    "scaleAuto": "Standard",
+    "scaleFit": "Detailed"
+  },
+  "history": {
+    "range": "Show History For",
+    "7days": "7 Days",
+    "30days": "30 Days",
+    "90days": "90 Days",
+    "6months": "6 Months",
+    "1year": "1 Year"
+  },
+  "theme": {
+    "light": "Switch to light theme",
+    "dark": "Switch to dark theme",
+    "lightMode": "Light theme",
+    "darkMode": "Dark theme"
+  },
+  "language": {
+    "label": "Change language",
+    "english": "English",
+    "spanish": "Spanish"
+  },
+  "apiDocs": {
+    "title": "API Documentation",
+    "description": "View the technical documentation for developers",
+    "pageTitle": "Currency Converter API Documentation",
+    "pageSubtitle": "Free and open API for real-time currency conversion and historical exchange rates",
+    "backToApp": "Back to App",
+    "github": "GitHub",
+    "loading": "Loading API documentation...",
+    "aboutTitle": "About this API",
+    "aboutText": "This API provides endpoints for currency conversion, historical exchange rates, and currency information. All data is cached for 1 hour to optimize performance. The API is free to use and doesn't require authentication.",
+    "rateLimitsTitle": "Rate Limits",
+    "rateLimitsText": "No rate limits are currently enforced. However, please use the API responsibly. Data is cached for 1 hour, so repeated requests within that timeframe will return cached results."
+  },
+  "conversion": {
+    "loading": "Converting...",
+    "result": "{amount} {from} equals",
+    "rate": "Rate: 1 {from} = {rate} {to}",
+    "lastUpdated": "Last updated: {date}"
+  },
+  "errors": {
+    "loadCurrencies": "Unable to show available currencies. Please reload the page.",
+    "conversion": "Unable to convert at this time. Please try again.",
+    "history": "Unable to show exchange rate history.",
+    "generic": "Something went wrong"
+  }
+}

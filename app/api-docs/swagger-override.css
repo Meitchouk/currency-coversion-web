@@ -1,0 +1,141 @@
+/* Swagger UI Container - Reset básico sin romper Mantine */
+.swagger-container {
+  width: 100%;
+  overflow: hidden;
+  
+  /* Font básico */
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  line-height: 1.5;
+  font-size: 14px;
+}
+
+.swagger-container * {
+  box-sizing: border-box;
+}
+
+/* CRÍTICO: Permitir que TODOS los componentes de Mantine funcionen sin restricciones */
+.swagger-container [class*="mantine-"] {
+  all: revert !important;
+}
+
+/* Asegurar que los portales de Mantine (Menu, Tooltip, etc.) estén siempre visibles */
+.mantine-Menu-dropdown,
+.mantine-Tooltip-tooltip,
+.mantine-Popover-dropdown {
+  z-index: 10000 !important;
+}
+
+/* Tema claro forzado solo para Swagger UI */
+.swagger-container .swagger-ui {
+  color-scheme: light !important;
+  font-family: sans-serif;
+  background-color: #ffffff !important;
+  color: #3b4151 !important;
+}
+
+/* Forzar colores claros en elementos internos del Swagger */
+.swagger-container .swagger-ui .opblock,
+.swagger-container .swagger-ui .opblock-tag-section,
+.swagger-container .swagger-ui .information-container,
+.swagger-container .swagger-ui .scheme-container {
+  background-color: #ffffff !important;
+  color: #3b4151 !important;
+}
+
+.swagger-container .swagger-ui .opblock-summary {
+  background-color: inherit !important;
+}
+
+.swagger-container .swagger-ui .btn {
+  background-color: #4990e2 !important;
+  color: #ffffff !important;
+}
+
+.swagger-container .swagger-ui input,
+.swagger-container .swagger-ui textarea,
+.swagger-container .swagger-ui select {
+  background-color: #ffffff !important;
+  color: #3b4151 !important;
+  border: 1px solid #d9d9d9 !important;
+}
+
+/* Swagger UI Content - Mejorar integración */
+.swagger-container .swagger-ui .information-container {
+  margin: 0;
+  padding: 16px;
+  background: transparent;
+}
+
+.swagger-container .swagger-ui .info {
+  margin: 0;
+}
+
+.swagger-container .swagger-ui .info .title {
+  font-size: 24px;
+  margin-bottom: 8px;
+}
+
+.swagger-container .swagger-ui .scheme-container {
+  background: #f8f9fa;
+  padding: 16px;
+  margin: 0;
+  box-shadow: none;
+  border-top: 1px solid #dee2e6;
+  border-bottom: 1px solid #dee2e6;
+}
+
+.swagger-container .swagger-ui .opblock-tag-section {
+  padding: 0 16px;
+}
+
+.swagger-container .swagger-ui .opblock-tag {
+  border-bottom: 1px solid #e9ecef;
+  padding: 12px 0;
+  margin: 0;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.swagger-container .swagger-ui .opblock {
+  margin: 12px 0;
+  border: 1px solid #dee2e6;
+  border-radius: 6px;
+  box-shadow: none;
+}
+
+.swagger-container .swagger-ui .opblock .opblock-summary {
+  padding: 8px 16px;
+}
+
+/* Remover padding extra al final */
+.swagger-container .swagger-ui > div:last-child {
+  padding-bottom: 16px;
+}
+
+/* Swagger UI Content */
+.swagger-container .swagger-ui .information-container {
+  margin: 0;
+  padding: 20px;
+}
+
+.swagger-container .swagger-ui .scheme-container {
+  background: #fafafa;
+  padding: 30px 0;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.swagger-container .swagger-ui .opblock-tag {
+  border-bottom: 1px solid rgba(59, 65, 81, 0.3);
+  cursor: pointer;
+}
+
+.swagger-container .swagger-ui .opblock {
+  margin: 0 0 15px 0;
+  border: 1px solid rgba(59, 65, 81, 0.2);
+  border-radius: 4px;
+  box-shadow: 0 0 3px rgba(0, 0, 0, 0.19);
+}

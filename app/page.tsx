@@ -1,65 +1,184 @@
-import Image from "next/image";
+'use client';
 
-export default function Home() {
+import { useState } from 'react';
+import { Container, Stack, Box, Group } from '@mantine/core';
+import { ThemeToggle, LanguageToggle, HeaderSection } from '@/components/layout';
+import { InfoAlert, ErrorAlert, RefreshButton, FooterText } from '@/components/ui';
+import { ConversionFormSkeleton, ConversionForm, ConversionResult } from '@/components/features/conversion';
+import { HistoryRangeSelector, HistoryChart } from '@/components/features/history';
+import { useCurrencies, useConversion, useHistoricalData, useMounted } from '@/hooks';
+import { DEFAULTS } from '@/lib/constants';
+import { useLocale } from '@/lib/locale-context';
+import { 
+  getConversionFormTranslations, 
+  getRefreshButtonTranslations, 
+  getHistoryRangeSelectorTranslations 
+} from '@/lib/page-translations';
+import en from '@/messages/en.json';
+import es from '@/messages/es.json';
+
+const messages = { en, es };
+
+export default function HomePage() {
+  const { locale } = useLocale();
+  const t = messages[locale];
+  
+  // State management
+  const [fromCurrency, setFromCurrency] = useState<string | null>(DEFAULTS.FROM_CURRENCY);
+  const [toCurrency, setToCurrency] = useState<string | null>(DEFAULTS.TO_CURRENCY);
+  const [amount, setAmount] = useState<number | string>(DEFAULTS.AMOUNT);
+  const [historyDays, setHistoryDays] = useState<number>(DEFAULTS.HISTORY_DAYS);
+
+  // Custom hooks for data fetching
+  const { currencies, loading: currenciesLoading, error: currenciesError } = useCurrencies();
+  
+  const { 
+    conversion, 
+    loading: conversionLoading, 
+    error: conversionError,
+    convert 
+  } = useConversion({
+    fromCurrency,
+    toCurrency,
+    amount,
+    autoFetch: true,
+  });
+
+  const { 
+    data: historicalData, 
+    loading: historyLoading,
+    refetch: refetchHistory 
+  } = useHistoricalData({
+    fromCurrency,
+    toCurrency,
+    days: historyDays,
+    autoFetch: true,
+  });
+
+  // Animation state
+  const mounted = useMounted();
+
+  // Handlers
+  const swapCurrencies = () => {
+    const temp = fromCurrency;
+    setFromCurrency(toCurrency);
+    setToCurrency(temp);
+  };
+
+  const handleRefresh = () => {
+    convert();
+    refetchHistory();
+  };
+
+  // Combined states
+  const error = currenciesError || conversionError;
+  const isLoading = conversionLoading || historyLoading;
+  const hasActiveCurrencies = fromCurrency && toCurrency;
+
+  // Translations
+  const conversionFormTranslations = getConversionFormTranslations(t);
+  const refreshButtonTranslations = getRefreshButtonTranslations(t);
+  const historyRangeSelectorTranslations = getHistoryRangeSelectorTranslations(t);
+
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
+    <Container size="lg" py="xl">
+      {/* Settings Toggle */}
+      <Box pos="fixed" top={20} right={20} style={{ zIndex: 1000 }}>
+        <Group gap="xs">
+          <LanguageToggle />
+          <ThemeToggle />
+        </Group>
+      </Box>
+
+      <Stack gap="xl">
+        {/* Header */}
+        <HeaderSection
+          title={t.app.title}
+          subtitle={t.app.subtitle}
+          mounted={mounted}
         />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
+
+        {/* Info Alert */}
+        <InfoAlert
+          title={t.alert.freeRealtime}
+          message={t.alert.cacheInfo}
+          mounted={mounted}
+        />
+
+        {/* Error Alert */}
+        <ErrorAlert
+          error={error}
+          errorTitle={t.errors.generic}
+        />
+
+        {/* Conversion Form */}
+        {currenciesLoading ? (
+          <ConversionFormSkeleton mounted={mounted} />
+        ) : (
+          <ConversionForm
+            fromCurrency={fromCurrency}
+            toCurrency={toCurrency}
+            amount={amount}
+            currencies={currencies}
+            translations={conversionFormTranslations}
+            mounted={mounted}
+            disabled={currenciesLoading}
+            onFromCurrencyChange={setFromCurrency}
+            onToCurrencyChange={setToCurrency}
+            onAmountChange={setAmount}
+            onSwap={swapCurrencies}
+          />
+        )}
+
+        {/* Conversion Result */}
+        {conversion && (
+          <ConversionResult
+            from={conversion.from}
+            to={conversion.to}
+            amount={conversion.amount}
+            result={conversion.result}
+            rate={conversion.rate}
+            timestamp={conversion.timestamp}
+            loading={conversionLoading}
+          />
+        )}
+
+        {/* Refresh Button */}
+        <RefreshButton
+          translations={refreshButtonTranslations}
+          mounted={mounted}
+          loading={isLoading}
+          disabled={!hasActiveCurrencies || currenciesLoading}
+          onClick={handleRefresh}
+        />
+
+        {/* Historical Data Section */}
+        {hasActiveCurrencies && (
+          <>
+            <HistoryRangeSelector
+              value={historyDays}
+              translations={historyRangeSelectorTranslations}
+              mounted={mounted}
+              disabled={historyLoading || currenciesLoading}
+              onChange={setHistoryDays}
             />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
-    </div>
+
+            <HistoryChart
+              from={fromCurrency}
+              to={toCurrency}
+              data={historicalData?.rates || []}
+              loading={historyLoading}
+              days={historyDays}
+            />
+          </>
+        )}
+
+        {/* Footer Text */}
+        <FooterText
+          text={t.app.poweredBy}
+          mounted={mounted}
+        />
+      </Stack>
+    </Container>
   );
 }
