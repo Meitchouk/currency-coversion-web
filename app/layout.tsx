@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { ColorSchemeScript } from '@mantine/core';
+import { SpeedInsights } from '@vercel/speed-insights/next';
 import { ClientProviders } from '@/components/providers';
 import { LocaleProvider } from '@/lib/locale-context';
 import { Footer } from '@/components/layout';
@@ -44,6 +45,7 @@ export default function RootLayout({
             <Footer />
           </LocaleProvider>
         </ClientProviders>
+        <SpeedInsights />
       </body>
     </html>
   );
