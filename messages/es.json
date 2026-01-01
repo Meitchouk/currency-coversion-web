@@ -87,6 +87,10 @@
     "rate": "Tasa: 1 {from} = {rate} {to}",
     "lastUpdated": "Última actualización: {date}"
   },
+  "quickConversion": {
+    "title": "Tipos de Cambio de {from} a {to} Hoy",
+    "titleReverse": "Tipos de Cambio de {to} a {from} Hoy"
+  },
   "errors": {
     "loadCurrencies": "No se pudieron mostrar las monedas disponibles. Por favor, recargue la página.",
     "conversion": "No se pudo convertir en este momento. Por favor, inténtelo de nuevo.",

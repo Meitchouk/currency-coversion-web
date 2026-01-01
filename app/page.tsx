@@ -1,10 +1,10 @@
 'use client';
 
 import { useState } from 'react';
-import { Container, Stack, Box } from '@mantine/core';
+import { Container, Stack, Box, Grid } from '@mantine/core';
 import { SettingsMenu, HeaderSection } from '@/components/layout';
 import { InfoAlert, ErrorAlert, RefreshButton, FooterText, CustomLoader } from '@/components/ui';
-import { ConversionFormSkeleton, ConversionForm, ConversionResult } from '@/components/features/conversion';
+import { ConversionFormSkeleton, ConversionForm, ConversionResult, QuickConversionTable } from '@/components/features/conversion';
 import { HistoryRangeSelector, HistoryChart } from '@/components/features/history';
 import { useCurrencies, useConversion, useHistoricalData, useMounted } from '@/hooks';
 import { DEFAULTS } from '@/lib/constants';
@@ -151,6 +151,28 @@ export default function HomePage() {
             timestamp={conversion.timestamp}
             loading={conversionLoading}
           />
+        )}
+
+        {/* Quick Conversion Tables */}
+        {conversion && conversion.rate && fromCurrency && toCurrency && (
+          <Grid gutter="md">
+            <Grid.Col span={{ base: 12, md: 6 }}>
+              <QuickConversionTable
+                from={fromCurrency}
+                to={toCurrency}
+                rate={conversion.rate}
+                reverse={false}
+              />
+            </Grid.Col>
+            <Grid.Col span={{ base: 12, md: 6 }}>
+              <QuickConversionTable
+                from={fromCurrency}
+                to={toCurrency}
+                rate={conversion.rate}
+                reverse={true}
+              />
+            </Grid.Col>
+          </Grid>
         )}
 
         {/* Refresh Button */}
