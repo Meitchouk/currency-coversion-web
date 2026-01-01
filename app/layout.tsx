@@ -38,9 +38,9 @@ export default function RootLayout({
       <body style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
         <ClientProviders>
           <LocaleProvider>
-            <div style={{ flex: 1 }}>
+            <main style={{ flex: 1 }}>
               {children}
-            </div>
+            </main>
             <Footer />
           </LocaleProvider>
         </ClientProviders>

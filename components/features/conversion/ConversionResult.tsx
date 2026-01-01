@@ -52,7 +52,7 @@ export function ConversionResult({
       {(styles) => (
         <Paper shadow="sm" p="lg" radius="md" withBorder style={styles}>
           <Stack gap="md">
-            <Text size="sm" c="dimmed" mb={-8}>
+            <Text size="sm" style={{ color: 'var(--mantine-color-gray-6)' }} mb={-8}>
               {t.conversion.result.replace('{amount}', formatCurrency(amount)).replace('{from}', from)}
             </Text>
             <Group gap="xs" align="center">
@@ -70,7 +70,7 @@ export function ConversionResult({
 
             <Group gap="xs">
               <IconClock size={16} style={{ opacity: 0.6 }} />
-              <Text size="xs" c="dimmed">
+              <Text size="xs" style={{ color: 'var(--mantine-color-gray-6)' }}>
                 {t.conversion.lastUpdated.replace('{date}', formattedTimestamp)}
               </Text>
             </Group>

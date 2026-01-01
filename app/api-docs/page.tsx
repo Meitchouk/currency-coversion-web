@@ -58,13 +58,13 @@ export default function ApiDocsPage() {
         {/* Header */}
         <Stack gap="xs" mb="xs" align="center" style={{ textAlign: 'center' }} visibleFrom="sm">
           <Title order={2} size="h3">{t.pageTitle}</Title>
-          <Text c="dimmed" size="sm">{t.pageSubtitle}</Text>
+          <Text style={{ color: 'var(--mantine-color-gray-6)' }} size="sm">{t.pageSubtitle}</Text>
         </Stack>
 
         {/* Header Mobile */}
         <Stack gap="xs" mb="xs" align="center" style={{ textAlign: 'center' }} hiddenFrom="sm">
           <Title order={2} size="h3">{t.pageTitle}</Title>
-          <Text c="dimmed" size="sm">{t.pageSubtitle}</Text>
+          <Text style={{ color: 'var(--mantine-color-gray-6)' }} size="sm">{t.pageSubtitle}</Text>
         </Stack>
 
         {/* Action Buttons */}
@@ -99,7 +99,7 @@ export default function ApiDocsPage() {
               <Group gap="xs" mb={4}>
                 <Text size="sm" fw={600}>{t.aboutTitle}</Text>
               </Group>
-              <Text size="xs" c="dimmed" style={{ lineHeight: 1.5 }}>{t.aboutText}</Text>
+              <Text size="xs" style={{ lineHeight: 1.5, color: 'var(--mantine-color-gray-6)' }}>{t.aboutText}</Text>
             </Paper>
           </Grid.Col>
           <Grid.Col span={{ base: 12, md: 6 }}>
@@ -107,7 +107,7 @@ export default function ApiDocsPage() {
               <Group gap="xs" mb={4}>
                 <Text size="sm" fw={600}>{t.rateLimitsTitle}</Text>
               </Group>
-              <Text size="xs" c="dimmed" style={{ lineHeight: 1.5 }}>{t.rateLimitsText}</Text>
+              <Text size="xs" style={{ lineHeight: 1.5, color: 'var(--mantine-color-gray-6)' }}>{t.rateLimitsText}</Text>
             </Paper>
           </Grid.Col>
         </Grid>
