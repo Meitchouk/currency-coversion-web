@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { Paper, Text, Table, Select, MultiSelect, NumberInput, Stack, Group, Badge, Loader, Card, Divider } from '@mantine/core';
+import { Paper, Text, Table, Select, MultiSelect, NumberInput, Stack, Group, Badge, Card, Divider, Skeleton } from '@mantine/core';
 import { useMediaQuery } from '@mantine/hooks';
 import { IconWorld } from '@tabler/icons-react';
 import { formatCurrency } from '@/lib/utils';
@@ -147,9 +147,46 @@ export function MultiCurrencyComparator({
         />
 
         {loading ? (
-          <Group justify="center" py="xl">
-            <Loader size="md" />
-          </Group>
+          isMobile ? (
+            // Mobile skeleton
+            <Stack gap="xs">
+              {[1, 2, 3, 4, 5].map((i) => (
+                <Card key={i} p="xs" radius="md" withBorder>
+                  <Stack gap="xs">
+                    <Group justify="space-between" align="center">
+                      <Skeleton height={24} width={100} radius="md" />
+                      <Skeleton height={24} width={100} radius="md" />
+                    </Group>
+                    <Divider my={0} />
+                    <Group justify="space-between" align="center">
+                      <Skeleton height={20} width={80} radius="md" />
+                      <Skeleton height={20} width={120} radius="md" />
+                    </Group>
+                  </Stack>
+                </Card>
+              ))}
+            </Stack>
+          ) : (
+            // Desktop skeleton
+            <Table striped withTableBorder>
+              <Table.Thead>
+                <Table.Tr>
+                  <Table.Th><Skeleton height={20} radius="md" /></Table.Th>
+                  <Table.Th><Skeleton height={20} radius="md" /></Table.Th>
+                  <Table.Th><Skeleton height={20} radius="md" /></Table.Th>
+                </Table.Tr>
+              </Table.Thead>
+              <Table.Tbody>
+                {[1, 2, 3, 4, 5].map((i) => (
+                  <Table.Tr key={i}>
+                    <Table.Td><Skeleton height={24} radius="md" /></Table.Td>
+                    <Table.Td><Skeleton height={24} radius="md" /></Table.Td>
+                    <Table.Td><Skeleton height={24} radius="md" /></Table.Td>
+                  </Table.Tr>
+                ))}
+              </Table.Tbody>
+            </Table>
+          )
         ) : (
           <>
             <Text size="sm" fw={500} style={{ color: 'var(--mantine-color-gray-6)' }}>
@@ -170,7 +207,7 @@ export function MultiCurrencyComparator({
                   const currency = currencies.find(c => c.code === code);
                   
                   return (
-                    <Card key={code} p="sm" radius="md" withBorder style={{ backgroundColor: 'var(--mantine-color-dark-7)' }}>
+                    <Card key={code} p="sm" radius="md" withBorder>
                       <Stack gap="xs">
                         <Group justify="space-between" align="center">
                           <Group gap="xs">

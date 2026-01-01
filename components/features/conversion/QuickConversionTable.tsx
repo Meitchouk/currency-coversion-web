@@ -1,6 +1,7 @@
 'use client';
 
-import { Paper, Text, Table, Stack } from '@mantine/core';
+import { Paper, Text, Table, Stack, Card, Group } from '@mantine/core';
+import { useMediaQuery } from '@mantine/hooks';
 import { formatCurrency } from '@/lib/utils';
 import { useLocale } from '@/lib/locale-context';
 import en from '@/messages/en.json';
@@ -17,10 +18,12 @@ interface QuickConversionTableProps {
 
 // Valores predefinidos para la tabla
 const PRESET_VALUES = [1, 5, 10, 20, 50, 100, 250, 500, 1000, 2000, 5000, 10000];
+const MOBILE_PRESET_VALUES = [10, 20, 50, 100, 250];
 
 export function QuickConversionTable({ from, to, rate, reverse = false }: QuickConversionTableProps) {
   const { locale } = useLocale();
   const t = messages[locale];
+  const isMobile = useMediaQuery('(max-width: 768px)');
 
   // Si es reverso, intercambiamos las monedas y el rate
   const sourceCurrency = reverse ? to : from;
@@ -55,15 +58,37 @@ export function QuickConversionTable({ from, to, rate, reverse = false }: QuickC
         <Text size="lg" fw={700} ta="center">
           {title}
         </Text>
-        <Table striped highlightOnHover withTableBorder withColumnBorders>
-          <Table.Thead>
-            <Table.Tr>
-              <Table.Th>{sourceCurrency}</Table.Th>
-              <Table.Th>{targetCurrency}</Table.Th>
-            </Table.Tr>
-          </Table.Thead>
-          <Table.Tbody>{rows}</Table.Tbody>
-        </Table>
+        {isMobile ? (
+          // Mobile: Grid layout with limited values
+          <Stack gap="xs">
+            {MOBILE_PRESET_VALUES.map((value) => {
+              const result = value * conversionRate;
+              return (
+                <Card key={value} p="xs" radius="md" withBorder>
+                  <Group justify="space-between" align="center">
+                    <Text fw={500} size="sm">
+                      {formatCurrency(value)} {sourceCurrency}
+                    </Text>
+                    <Text c="blue" fw={600} size="sm">
+                      {formatCurrency(result)} {targetCurrency}
+                    </Text>
+                  </Group>
+                </Card>
+              );
+            })}
+          </Stack>
+        ) : (
+          // Desktop: Table layout
+          <Table striped highlightOnHover withTableBorder withColumnBorders>
+            <Table.Thead>
+              <Table.Tr>
+                <Table.Th>{sourceCurrency}</Table.Th>
+                <Table.Th>{targetCurrency}</Table.Th>
+              </Table.Tr>
+            </Table.Thead>
+            <Table.Tbody>{rows}</Table.Tbody>
+          </Table>
+        )}
       </Stack>
     </Paper>
   );

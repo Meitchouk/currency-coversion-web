@@ -91,6 +91,47 @@
     "title": "{from} to {to} Exchange Rates Today",
     "titleReverse": "{to} to {from} Exchange Rates Today"
   },
+  "sections": {
+    "conversion": {
+      "title": "Convert Currency",
+      "description": "Enter an amount and select currencies to get real-time exchange rates"
+    },
+    "quickRates": {
+      "title": "Quick Exchange Rates",
+      "description": "Pre-defined conversions for quick reference in both directions"
+    },
+    "history": {
+      "title": "Exchange Rate History",
+      "description": "Track how exchange rates have changed over the past days"
+    },
+    "multiComparator": {
+      "title": "Multi-Currency Comparison",
+      "description": "Compare your currency against multiple targets at once. Perfect for travelers and traders needing to see multiple exchange rates simultaneously."
+    }
+  },
+  "statistics": {
+    "title": "Statistics for {from} to {to}",
+    "last7Days": "Last 7 Days",
+    "last30Days": "Last 30 Days",
+    "last90Days": "Last 90 Days",
+    "last6Months": "Last 6 Months",
+    "last1Year": "Last Year",
+    "lastNDays": "Last {days} Days",
+    "maximum": "Highest Rate",
+    "minimum": "Lowest Rate",
+    "average": "Average Rate",
+    "fluctuation": "Volatility",
+    "trending": "Trending",
+    "up": "Up",
+    "down": "Down",
+    "stable": "Stable",
+    "description7": "The {from} to {to} exchange rate in the last 7 days reached a high of {max} and a low of {min}. This means the 7-day average was {avg}. The fluctuation of {from} to {to} was {fluctuation}.",
+    "description30": "The {from} to {to} exchange rate in the last 30 days reached a high of {max} and a low of {min}. This means the 30-day average was {avg}. The fluctuation of {from} to {to} was {fluctuation}.",
+    "description90": "The {from} to {to} exchange rate in the last 90 days reached a high of {max} and a low of {min}. This means the 90-day average was {avg}. The fluctuation of {from} to {to} was {fluctuation}.",
+    "description180": "The {from} to {to} exchange rate in the last 6 months reached a high of {max} and a low of {min}. This means the 6-month average was {avg}. The fluctuation of {from} to {to} was {fluctuation}.",
+    "description365": "The {from} to {to} exchange rate in the last year reached a high of {max} and a low of {min}. This means the yearly average was {avg}. The fluctuation of {from} to {to} was {fluctuation}.",
+    "descriptionN": "The {from} to {to} exchange rate in the last {days} days reached a high of {max} and a low of {min}. This means the {days}-day average was {avg}. The fluctuation of {from} to {to} was {fluctuation}."
+  },
   "multiComparator": {
     "title": "Multi-Currency Comparator",
     "baseCurrency": "Base Currency",
