@@ -87,6 +87,62 @@
     "rate": "Tasa: 1 {from} = {rate} {to}",
     "lastUpdated": "Última actualización: {date}"
   },
+  "quickConversion": {
+    "title": "Tipos de Cambio de {from} a {to} Hoy",
+    "titleReverse": "Tipos de Cambio de {to} a {from} Hoy"
+  },
+  "sections": {
+    "conversion": {
+      "title": "Convertir Monedas",
+      "description": "Ingresa la cantidad y las monedas para obtener la tasa de cambio en tiempo real"
+    },
+    "quickRates": {
+      "title": "Tasas de Cambio Rápidas",
+      "description": "Conversiones predefinidas para referencia rápida en ambas direcciones"
+    },
+    "history": {
+      "title": "Historial de Tasas de Cambio",
+      "description": "Visualiza la evolución de la tasa de cambio en los últimos días"
+    },
+    "multiComparator": {
+      "title": "Comparador de Múltiples Monedas",
+      "description": "Compara tu moneda contra múltiples divisas simultáneamente. Perfecto para viajeros y traders que necesitan ver varias tasas a la vez."
+    }
+  },
+  "statistics": {
+    "title": "Estadísticas de {from} a {to}",
+    "last7Days": "Últimos 7 días",
+    "last30Days": "Últimos 30 días",
+    "last90Days": "Últimos 90 días",
+    "last6Months": "Últimos 6 meses",
+    "last1Year": "Último año",
+    "lastNDays": "Últimos {days} días",
+    "maximum": "Tasa Más Alta",
+    "minimum": "Tasa Más Baja",
+    "average": "Tasa Promedio",
+    "fluctuation": "Volatilidad",
+    "trending": "Tendencia",
+    "up": "Al Alza",
+    "down": "A la Baja",
+    "stable": "Estable",
+    "description7": "El tipo de cambio de {from} a {to} en los últimos 7 días alcanzó un máximo de {max} y un mínimo de {min}. Esto significa que el promedio de 7 días fue de {avg}. La volatilidad de {from} frente a {to} fue de {fluctuation}.",
+    "description30": "El tipo de cambio de {from} a {to} en los últimos 30 días alcanzó un máximo de {max} y un mínimo de {min}. Esto significa que el promedio de 30 días fue de {avg}. La volatilidad de {from} frente a {to} fue de {fluctuation}.",
+    "description90": "El tipo de cambio de {from} a {to} en los últimos 90 días alcanzó un máximo de {max} y un mínimo de {min}. Esto significa que el promedio de 90 días fue de {avg}. La volatilidad de {from} frente a {to} fue de {fluctuation}.",
+    "description180": "El tipo de cambio de {from} a {to} en los últimos 6 meses alcanzó un máximo de {max} y un mínimo de {min}. Esto significa que el promedio de 6 meses fue de {avg}. La volatilidad de {from} frente a {to} fue de {fluctuation}.",
+    "description365": "El tipo de cambio de {from} a {to} en el último año alcanzó un máximo de {max} y un mínimo de {min}. Esto significa que el promedio anual fue de {avg}. La volatilidad de {from} frente a {to} fue de {fluctuation}.",
+    "descriptionN": "El tipo de cambio de {from} a {to} en los últimos {days} días alcanzó un máximo de {max} y un mínimo de {min}. Esto significa que el promedio de {days} días fue de {avg}. La volatilidad de {from} frente a {to} fue de {fluctuation}."
+  },
+  "multiComparator": {
+    "title": "Comparador Multi-Divisa",
+    "baseCurrency": "Moneda Base",
+    "amount": "Cantidad",
+    "targetCurrencies": "Divisas Objetivo",
+    "selectTargets": "Selecciona divisas para comparar",
+    "showing": "Mostrando {amount} {currency} convertido a {count} divisas",
+    "currency": "Divisa",
+    "equivalence": "Equivalencia",
+    "rate": "Tasa de Cambio"
+  },
   "errors": {
     "loadCurrencies": "No se pudieron mostrar las monedas disponibles. Por favor, recargue la página.",
     "conversion": "No se pudo convertir en este momento. Por favor, inténtelo de nuevo.",

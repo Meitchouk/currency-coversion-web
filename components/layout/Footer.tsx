@@ -78,8 +78,7 @@ export function Footer() {
                         target="_blank"
                         rel="noopener noreferrer"
                         size="sm"
-                        c="dimmed"
-                        style={{ fontWeight: 500 }}
+                        style={{ fontWeight: 500, color: 'var(--mantine-color-gray-6)' }}
                       >
                         {link.label}
                       </Anchor>
@@ -102,8 +101,7 @@ export function Footer() {
                           component={Link}
                           href={link.href}
                           size="sm"
-                          c="dimmed"
-                          style={{ fontWeight: 500 }}
+                          style={{ fontWeight: 500, color: 'var(--mantine-color-gray-6)' }}
                         >
                           {link.label}
                         </Anchor>
@@ -113,8 +111,7 @@ export function Footer() {
                           target="_blank"
                           rel="noopener noreferrer"
                           size="sm"
-                          c="dimmed"
-                          style={{ fontWeight: 500 }}
+                          style={{ fontWeight: 500, color: 'var(--mantine-color-gray-6)' }}
                         >
                           {link.label}
                         </Anchor>
@@ -138,8 +135,7 @@ export function Footer() {
                         target="_blank"
                         rel="noopener noreferrer"
                         size="sm"
-                        c="dimmed"
-                        style={{ fontWeight: 500 }}
+                        style={{ fontWeight: 500, color: 'var(--mantine-color-gray-6)' }}
                       >
                         {link.label}
                       </Anchor>
