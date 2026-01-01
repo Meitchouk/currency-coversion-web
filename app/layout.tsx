@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
-import { ColorSchemeScript, MantineProvider } from '@mantine/core';
-import { theme } from '@/styles/theme';
+import { ColorSchemeScript } from '@mantine/core';
+import { ClientProviders } from '@/components/providers';
 import { LocaleProvider } from '@/lib/locale-context';
 import { Footer } from '@/components/layout';
 import { generateFAQStructuredData } from '@/lib/seo';
@@ -36,14 +36,14 @@ export default function RootLayout({
         <meta name="theme-color" content="#1A1B1E" />
       </head>
       <body style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
-        <MantineProvider theme={theme} defaultColorScheme="dark">
+        <ClientProviders>
           <LocaleProvider>
             <div style={{ flex: 1 }}>
               {children}
             </div>
             <Footer />
           </LocaleProvider>
-        </MantineProvider>
+        </ClientProviders>
       </body>
     </html>
   );

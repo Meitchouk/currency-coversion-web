@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { Container, Stack, Box, Group } from '@mantine/core';
 import { ThemeToggle, LanguageToggle, HeaderSection } from '@/components/layout';
-import { InfoAlert, ErrorAlert, RefreshButton, FooterText } from '@/components/ui';
+import { InfoAlert, ErrorAlert, RefreshButton, FooterText, CustomLoader } from '@/components/ui';
 import { ConversionFormSkeleton, ConversionForm, ConversionResult } from '@/components/features/conversion';
 import { HistoryRangeSelector, HistoryChart } from '@/components/features/history';
 import { useCurrencies, useConversion, useHistoricalData, useMounted } from '@/hooks';
@@ -79,6 +79,22 @@ export default function HomePage() {
   const conversionFormTranslations = getConversionFormTranslations(t);
   const refreshButtonTranslations = getRefreshButtonTranslations(t);
   const historyRangeSelectorTranslations = getHistoryRangeSelectorTranslations(t);
+
+  // Show full-page loader on initial load
+  if (currenciesLoading && !currencies.length) {
+    return (
+      <Container size="lg" py="xl">
+        <Box pos="fixed" top={20} right={20} style={{ zIndex: 1000 }}>
+          <Group gap="xs">
+            <LanguageToggle />
+            <ThemeToggle />
+          </Group>
+        </Box>
+        
+        <CustomLoader />
+      </Container>
+    );
+  }
 
   return (
     <Container size="lg" py="xl">
