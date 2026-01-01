@@ -63,6 +63,11 @@
     "english": "Inglés",
     "spanish": "Español"
   },
+  "settings": {
+    "menu": "Configuración",
+    "language": "Idioma",
+    "theme": "Tema"
+  },
   "apiDocs": {
     "title": "Documentación de API",
     "description": "Ver la documentación técnica para desarrolladores",

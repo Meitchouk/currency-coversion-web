@@ -2,10 +2,10 @@
 
 import { useEffect, useState } from 'react';
 import dynamic from 'next/dynamic';
-import { Container, Title, Text, Stack, Group, Button, Paper, Grid } from '@mantine/core';
+import { Container, Title, Text, Stack, Group, Button, Paper, Grid, Box } from '@mantine/core';
 import { IconArrowLeft, IconBrandGithub } from '@tabler/icons-react';
 import { useLocale } from '@/lib/locale-context';
-import { LanguageToggle, ThemeToggle } from '@/components/layout';
+import { SettingsMenu } from '@/components/layout';
 import en from '@/messages/en.json';
 import es from '@/messages/es.json';
 import 'swagger-ui-react/swagger-ui.css';
@@ -48,40 +48,48 @@ export default function ApiDocsPage() {
   }
 
   return (
-    <Container size="xl" py="md">
-      <Stack gap="md">
+    <Container size="xl" py="md" pt={{ base: 80, sm: 'md' }}>
+      {/* Settings Menu */}
+      <Box pos="fixed" top={20} right={20} style={{ zIndex: 1000 }}>
+        <SettingsMenu />
+      </Box>
+
+      <Stack gap="md" pt={{ base: 40, sm: 'md' }}>
         {/* Header */}
-        <Group justify="space-between" align="flex-start" mb="xs">
-          <div>
-            <Title order={2} size="h3" mb={4}>{t.pageTitle}</Title>
-            <Text c="dimmed" size="sm">{t.pageSubtitle}</Text>
-          </div>
-          
-          <Group gap="xs">
-            <ThemeToggle />
-            <LanguageToggle />
-            <Button
-              component="a"
-              href="/"
-              variant="default"
-              size="sm"
-              leftSection={<IconArrowLeft size={16} />}
-            >
-              {t.backToApp}
-            </Button>
-            <Button
-              component="a"
-              href="https://github.com/Meitchouk/currency-coversion-web"
-              target="_blank"
-              rel="noopener noreferrer"
-              variant="filled"
-              color="dark"
-              size="sm"
-              leftSection={<IconBrandGithub size={16} />}
-            >
-              {t.github}
-            </Button>
-          </Group>
+        <Stack gap="xs" mb="xs" align="center" style={{ textAlign: 'center' }} visibleFrom="sm">
+          <Title order={2} size="h3">{t.pageTitle}</Title>
+          <Text c="dimmed" size="sm">{t.pageSubtitle}</Text>
+        </Stack>
+
+        {/* Header Mobile */}
+        <Stack gap="xs" mb="xs" align="center" style={{ textAlign: 'center' }} hiddenFrom="sm">
+          <Title order={2} size="h3">{t.pageTitle}</Title>
+          <Text c="dimmed" size="sm">{t.pageSubtitle}</Text>
+        </Stack>
+
+        {/* Action Buttons */}
+        <Group justify="center" gap="xs" mb="md">
+          <Button
+            component="a"
+            href="/"
+            variant="default"
+            size="sm"
+            leftSection={<IconArrowLeft size={16} />}
+          >
+            {t.backToApp}
+          </Button>
+          <Button
+            component="a"
+            href="https://github.com/Meitchouk/currency-coversion-web"
+            target="_blank"
+            rel="noopener noreferrer"
+            variant="filled"
+            color="dark"
+            size="sm"
+            leftSection={<IconBrandGithub size={16} />}
+          >
+            {t.github}
+          </Button>
         </Group>
 
         {/* Info Cards */}

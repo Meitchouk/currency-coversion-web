@@ -1,8 +1,8 @@
 'use client';
 
 import { useState } from 'react';
-import { Container, Stack, Box, Group } from '@mantine/core';
-import { ThemeToggle, LanguageToggle, HeaderSection } from '@/components/layout';
+import { Container, Stack, Box } from '@mantine/core';
+import { SettingsMenu, HeaderSection } from '@/components/layout';
 import { InfoAlert, ErrorAlert, RefreshButton, FooterText, CustomLoader } from '@/components/ui';
 import { ConversionFormSkeleton, ConversionForm, ConversionResult } from '@/components/features/conversion';
 import { HistoryRangeSelector, HistoryChart } from '@/components/features/history';
@@ -83,12 +83,9 @@ export default function HomePage() {
   // Show full-page loader on initial load
   if (currenciesLoading && !currencies.length) {
     return (
-      <Container size="lg" py="xl">
+      <Container size="lg" py="xl" pt={{ base: 80, sm: 'xl' }}>
         <Box pos="fixed" top={20} right={20} style={{ zIndex: 1000 }}>
-          <Group gap="xs">
-            <LanguageToggle />
-            <ThemeToggle />
-          </Group>
+          <SettingsMenu />
         </Box>
         
         <CustomLoader />
@@ -97,13 +94,10 @@ export default function HomePage() {
   }
 
   return (
-    <Container size="lg" py="xl">
+    <Container size="lg" py="xl" pt={{ base: 80, sm: 'xl' }}>
       {/* Settings Toggle */}
       <Box pos="fixed" top={20} right={20} style={{ zIndex: 1000 }}>
-        <Group gap="xs">
-          <LanguageToggle />
-          <ThemeToggle />
-        </Group>
+        <SettingsMenu />
       </Box>
 
       <Stack gap="xl">

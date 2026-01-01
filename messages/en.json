@@ -63,6 +63,11 @@
     "english": "English",
     "spanish": "Spanish"
   },
+  "settings": {
+    "menu": "Settings",
+    "language": "Language",
+    "theme": "Theme"
+  },
   "apiDocs": {
     "title": "API Documentation",
     "description": "View the technical documentation for developers",
