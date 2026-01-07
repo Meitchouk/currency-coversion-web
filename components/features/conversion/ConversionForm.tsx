@@ -7,6 +7,7 @@ import { AmountInput } from './AmountInput';
 import { InfoTooltip } from '@/components/shared';
 import { CurrencyOption } from '@/types/currency';
 import { ANIMATION_DURATION, TRANSITIONS } from '@/lib/constants';
+import { isValidAmount } from '@/lib/utils';
 
 interface ConversionFormProps {
   fromCurrency: string | null;
@@ -18,6 +19,7 @@ interface ConversionFormProps {
     to: string;
     amount: string;
     swap: string;
+    convert: string;
     selectCurrency: string;
     enterAmount: string;
     swapTooltip: string;
@@ -28,6 +30,7 @@ interface ConversionFormProps {
   onToCurrencyChange: (value: string | null) => void;
   onAmountChange: (value: number | string) => void;
   onSwap: () => void;
+  onConvert?: () => void;
 }
 
 export function ConversionForm({
@@ -42,6 +45,7 @@ export function ConversionForm({
   onToCurrencyChange,
   onAmountChange,
   onSwap,
+  onConvert,
 }: ConversionFormProps) {
   return (
     <Transition 
@@ -120,6 +124,17 @@ export function ConversionForm({
               disabled={disabled}
             />
           </Grid.Col>
+          {onConvert && (
+            <Grid.Col span={12}>
+              <Button
+                onClick={onConvert}
+                fullWidth
+                disabled={disabled || !fromCurrency || !toCurrency || !isValidAmount(amount)}
+              >
+                {translations.convert}
+              </Button>
+            </Grid.Col>
+          )}
         </Grid>
       )}
     </Transition>
