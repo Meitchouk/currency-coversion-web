@@ -9,6 +9,7 @@ type Messages = {
     to: string;
     amount: string;
     swap: string;
+    convert: string;
     selectCurrency: string;
     enterAmount: string;
   };
@@ -35,6 +36,7 @@ export const getConversionFormTranslations = (t: Messages) => ({
   to: t.form.to,
   amount: t.form.amount,
   swap: t.form.swap,
+  convert: t.form.convert,
   selectCurrency: t.form.selectCurrency,
   enterAmount: t.form.enterAmount,
   swapTooltip: t.tooltips.swap,

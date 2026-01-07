@@ -39,6 +39,7 @@ export default function HomePage() {
   const [historyDays, setHistoryDays] = useState<number>(DEFAULTS.HISTORY_DAYS);
   const [refreshKey, setRefreshKey] = useState<number>(0);
   const [hasRestored, setHasRestored] = useState(false);
+  const [autoFetchConversion, setAutoFetchConversion] = useState<boolean>(true);
 
   // Custom hooks for data fetching
   const { currencies, loading: currenciesLoading, error: currenciesError } = useCurrencies();
@@ -52,12 +53,13 @@ export default function HomePage() {
     fromCurrency,
     toCurrency,
     amount,
-    autoFetch: hasRestored,
+    autoFetch: hasRestored || autoFetchConversion,
   });
 
   const {
     data: historicalData,
     loading: historyLoading,
+    error: historyError,
     refetch: refetchHistory
   } = useHistoricalData({
     fromCurrency,
@@ -140,8 +142,13 @@ export default function HomePage() {
     setRefreshKey(prev => prev + 1);
   };
 
+  const handleManualConvert = () => {
+    setAutoFetchConversion(false);
+    convert();
+  };
+
   // Combined states
-  const error = currenciesError || conversionError;
+  const error = currenciesError || conversionError || historyError;
   const isLoading = conversionLoading || historyLoading;
   const hasActiveCurrencies = fromCurrency && toCurrency;
 
@@ -218,6 +225,7 @@ export default function HomePage() {
                 onToCurrencyChange={setToCurrency}
                 onAmountChange={setAmount}
                 onSwap={swapCurrencies}
+                onConvert={handleManualConvert}
               />
             )}
 
@@ -305,6 +313,8 @@ export default function HomePage() {
                 data={historicalData?.rates || []}
                 loading={historyLoading}
                 days={historyDays}
+                error={historyError}
+                refetch={refetchHistory}
               />
 
               {/* Statistics */}

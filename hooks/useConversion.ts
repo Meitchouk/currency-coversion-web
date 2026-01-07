@@ -1,4 +1,5 @@
 import { useState, useCallback, useEffect } from 'react';
+import { useDebouncedValue } from '@mantine/hooks';
 import { API_ENDPOINTS, ERROR_MESSAGES } from '@/lib/constants';
 import { buildQueryString, isValidAmount } from '@/lib/utils';
 import type { ConversionResult } from '@/types/exchange';
@@ -26,12 +27,13 @@ export function useConversion({
   amount,
   autoFetch = true,
 }: UseConversionParams): UseConversionReturn {
+  const [debouncedAmount] = useDebouncedValue(amount, 300);
   const [conversion, setConversion] = useState<ConversionResult | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
   const convert = useCallback(async () => {
-    if (!fromCurrency || !toCurrency || !isValidAmount(amount)) {
+    if (!fromCurrency || !toCurrency || !isValidAmount(debouncedAmount)) {
       return;
     }
 
@@ -42,7 +44,7 @@ export function useConversion({
       const query = buildQueryString({
         from: fromCurrency,
         to: toCurrency,
-        amount: amount,
+        amount: debouncedAmount,
       });
 
       const response = await fetch(`${API_ENDPOINTS.CONVERT}${query}`);
@@ -59,13 +61,13 @@ export function useConversion({
     } finally {
       setLoading(false);
     }
-  }, [fromCurrency, toCurrency, amount]);
+  }, [fromCurrency, toCurrency, debouncedAmount]);
 
   useEffect(() => {
-    if (autoFetch && fromCurrency && toCurrency && isValidAmount(amount)) {
+    if (autoFetch && fromCurrency && toCurrency && isValidAmount(debouncedAmount)) {
       convert();
     }
-  }, [autoFetch, fromCurrency, toCurrency, amount, convert]);
+  }, [autoFetch, fromCurrency, toCurrency, debouncedAmount, convert]);
 
   return {
     conversion,
