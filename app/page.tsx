@@ -48,6 +48,7 @@ export default function HomePage() {
   const {
     data: historicalData,
     loading: historyLoading,
+    error: historyError,
     refetch: refetchHistory
   } = useHistoricalData({
     fromCurrency,
@@ -73,7 +74,7 @@ export default function HomePage() {
   };
 
   // Combined states
-  const error = currenciesError || conversionError;
+  const error = currenciesError || conversionError || historyError;
   const isLoading = conversionLoading || historyLoading;
   const hasActiveCurrencies = fromCurrency && toCurrency;
 
@@ -237,6 +238,8 @@ export default function HomePage() {
                 data={historicalData?.rates || []}
                 loading={historyLoading}
                 days={historyDays}
+                error={historyError}
+                refetch={refetchHistory}
               />
 
               {/* Statistics */}

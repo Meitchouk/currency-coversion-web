@@ -20,9 +20,19 @@ interface HistoryChartProps {
   data: HistoricalRate[];
   loading?: boolean;
   days?: number;
+  error?: string | null;
+  refetch?: () => Promise<void>;
 }
 
-export function HistoryChart({ from, to, data, loading = false, days = 90 }: HistoryChartProps) {
+export function HistoryChart({
+  from,
+  to,
+  data,
+  loading = false,
+  days = 90,
+  error,
+  refetch,
+}: HistoryChartProps) {
   const { locale } = useLocale();
   const t = messages[locale];
   const [chartHeight, setChartHeight] = useState(300);
@@ -45,6 +55,21 @@ export function HistoryChart({ from, to, data, loading = false, days = 90 }: His
             <Skeleton height={300} />
           </Box>
           <Skeleton height={16} width="60%" mx="auto" />
+        </Stack>
+      </Paper>
+    );
+  }
+
+  if (error) {
+    return (
+      <Paper shadow="sm" p="lg" radius="md" withBorder>
+        <Stack gap="md" align="center">
+          <Text c="red" ta="center" fw={600}>
+            {error}
+          </Text>
+          <Button onClick={() => refetch?.()}>
+            Reintentar
+          </Button>
         </Stack>
       </Paper>
     );
