@@ -14,6 +14,7 @@
     "to": "A",
     "amount": "Cantidad",
     "swap": "Intercambiar",
+    "convert": "Convertir",
     "selectCurrency": "Seleccionar moneda",
     "enterAmount": "Ingrese la cantidad a convertir"
   },

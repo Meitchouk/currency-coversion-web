@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Container, Stack, Box, Grid, Paper, Text } from '@mantine/core';
 import { SettingsMenu, HeaderSection } from '@/components/layout';
 import { InfoAlert, ErrorAlert, RefreshButton, FooterText, CustomLoader } from '@/components/ui';
@@ -9,6 +9,7 @@ import { HistoryRangeSelector, HistoryChart, HistoryStatistics } from '@/compone
 import { useCurrencies, useConversion, useHistoricalData, useMounted } from '@/hooks';
 import { DEFAULTS } from '@/lib/constants';
 import { useLocale } from '@/lib/locale-context';
+import { safeJsonParse } from '@/lib/utils';
 import {
   getConversionFormTranslations,
   getRefreshButtonTranslations,
@@ -18,6 +19,14 @@ import en from '@/messages/en.json';
 import es from '@/messages/es.json';
 
 const messages = { en, es };
+const STORAGE_KEY = 'currency-conversion:form-state';
+
+type StoredFormState = {
+  fromCurrency?: string | null;
+  toCurrency?: string | null;
+  amount?: number | string;
+  historyDays?: number;
+};
 
 export default function HomePage() {
   const { locale } = useLocale();
@@ -29,6 +38,8 @@ export default function HomePage() {
   const [amount, setAmount] = useState<number | string>(DEFAULTS.AMOUNT);
   const [historyDays, setHistoryDays] = useState<number>(DEFAULTS.HISTORY_DAYS);
   const [refreshKey, setRefreshKey] = useState<number>(0);
+  const [hasRestored, setHasRestored] = useState(false);
+  const [autoFetchConversion, setAutoFetchConversion] = useState<boolean>(true);
 
   // Custom hooks for data fetching
   const { currencies, loading: currenciesLoading, error: currenciesError } = useCurrencies();
@@ -42,22 +53,81 @@ export default function HomePage() {
     fromCurrency,
     toCurrency,
     amount,
-    autoFetch: true,
+    autoFetch: hasRestored || autoFetchConversion,
   });
 
   const {
     data: historicalData,
     loading: historyLoading,
+    error: historyError,
     refetch: refetchHistory
   } = useHistoricalData({
     fromCurrency,
     toCurrency,
     days: historyDays,
-    autoFetch: true,
+    autoFetch: hasRestored,
   });
 
   // Animation state
   const mounted = useMounted();
+
+  useEffect(() => {
+    if (hasRestored || currenciesLoading) {
+      return;
+    }
+
+    if (typeof window === 'undefined') {
+      return;
+    }
+
+    if (!currencies.length) {
+      setHasRestored(true);
+      return;
+    }
+
+    const storedRaw = window.localStorage.getItem(STORAGE_KEY);
+    if (!storedRaw) {
+      setHasRestored(true);
+      return;
+    }
+
+    const stored = safeJsonParse<StoredFormState>(storedRaw, {});
+    const isValidCurrency = (code: string) =>
+      currencies.some(currency => currency.code === code || currency.value === code);
+
+    if (stored.fromCurrency && isValidCurrency(stored.fromCurrency)) {
+      setFromCurrency(stored.fromCurrency);
+    }
+
+    if (stored.toCurrency && isValidCurrency(stored.toCurrency)) {
+      setToCurrency(stored.toCurrency);
+    }
+
+    if (stored.amount !== undefined) {
+      setAmount(stored.amount);
+    }
+
+    if (typeof stored.historyDays === 'number' && stored.historyDays > 0) {
+      setHistoryDays(stored.historyDays);
+    }
+
+    setHasRestored(true);
+  }, [currencies, currenciesLoading, hasRestored]);
+
+  useEffect(() => {
+    if (typeof window === 'undefined' || !hasRestored) {
+      return;
+    }
+
+    const payload: StoredFormState = {
+      fromCurrency,
+      toCurrency,
+      amount,
+      historyDays,
+    };
+
+    window.localStorage.setItem(STORAGE_KEY, JSON.stringify(payload));
+  }, [amount, fromCurrency, historyDays, hasRestored, toCurrency]);
 
   // Handlers
   const swapCurrencies = () => {
@@ -72,8 +142,13 @@ export default function HomePage() {
     setRefreshKey(prev => prev + 1);
   };
 
+  const handleManualConvert = () => {
+    setAutoFetchConversion(false);
+    convert();
+  };
+
   // Combined states
-  const error = currenciesError || conversionError;
+  const error = currenciesError || conversionError || historyError;
   const isLoading = conversionLoading || historyLoading;
   const hasActiveCurrencies = fromCurrency && toCurrency;
 
@@ -135,7 +210,7 @@ export default function HomePage() {
               </Text>
             </div>
             {/* Conversion Form */}
-            {currenciesLoading ? (
+            {currenciesLoading || !hasRestored ? (
               <ConversionFormSkeleton mounted={mounted} />
             ) : (
               <ConversionForm
@@ -150,6 +225,7 @@ export default function HomePage() {
                 onToCurrencyChange={setToCurrency}
                 onAmountChange={setAmount}
                 onSwap={swapCurrencies}
+                onConvert={handleManualConvert}
               />
             )}
 
@@ -237,6 +313,8 @@ export default function HomePage() {
                 data={historicalData?.rates || []}
                 loading={historyLoading}
                 days={historyDays}
+                error={historyError}
+                refetch={refetchHistory}
               />
 
               {/* Statistics */}
