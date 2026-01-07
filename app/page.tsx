@@ -29,6 +29,7 @@ export default function HomePage() {
   const [amount, setAmount] = useState<number | string>(DEFAULTS.AMOUNT);
   const [historyDays, setHistoryDays] = useState<number>(DEFAULTS.HISTORY_DAYS);
   const [refreshKey, setRefreshKey] = useState<number>(0);
+  const [autoFetchConversion, setAutoFetchConversion] = useState<boolean>(true);
 
   // Custom hooks for data fetching
   const { currencies, loading: currenciesLoading, error: currenciesError } = useCurrencies();
@@ -42,7 +43,7 @@ export default function HomePage() {
     fromCurrency,
     toCurrency,
     amount,
-    autoFetch: true,
+    autoFetch: autoFetchConversion,
   });
 
   const {
@@ -70,6 +71,11 @@ export default function HomePage() {
     convert();
     refetchHistory();
     setRefreshKey(prev => prev + 1);
+  };
+
+  const handleManualConvert = () => {
+    setAutoFetchConversion(false);
+    convert();
   };
 
   // Combined states
@@ -150,6 +156,7 @@ export default function HomePage() {
                 onToCurrencyChange={setToCurrency}
                 onAmountChange={setAmount}
                 onSwap={swapCurrencies}
+                onConvert={handleManualConvert}
               />
             )}
 
