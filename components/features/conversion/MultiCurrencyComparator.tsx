@@ -1,7 +1,7 @@
 'use client';
 
-import { useState, useEffect } from 'react';
-import { Paper, Text, Table, Select, MultiSelect, NumberInput, Stack, Group, Badge, Card, Divider, Skeleton } from '@mantine/core';
+import { useState, useEffect, useCallback } from 'react';
+import { Alert, Button, Paper, Text, Table, Select, MultiSelect, NumberInput, Stack, Group, Badge, Card, Divider, Skeleton } from '@mantine/core';
 import { useMediaQuery } from '@mantine/hooks';
 import { IconWorld } from '@tabler/icons-react';
 import { formatCurrency } from '@/lib/utils';
@@ -37,42 +37,53 @@ export function MultiCurrencyComparator({
   const [selectedTargets, setSelectedTargets] = useState<string[]>(targetCurrencies);
   const [rates, setRates] = useState<Record<string, number>>({});
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   const currencyOptions = currencies.map((currency) => ({
     value: currency.code,
     label: `${currency.code} - ${currency.name}`,
   }));
 
-  useEffect(() => {
-    const fetchRates = async () => {
-      if (!selectedBase || selectedTargets.length === 0) {
-        setRates({});
-        return;
-      }
+  const fetchRates = useCallback(async () => {
+    if (!selectedBase || selectedTargets.length === 0) {
+      setRates({});
+      setError(null);
+      return;
+    }
+    
+    setLoading(true);
+    setError(null);
+    try {
+      const targetCodes = selectedTargets.join(',');
+      const response = await fetch(`/api/rates?from=${selectedBase}&to=${targetCodes}`);
       
-      setLoading(true);
-      try {
-        const targetCodes = selectedTargets.join(',');
-        const response = await fetch(`/api/rates?from=${selectedBase}&to=${targetCodes}`);
-        const data = await response.json();
-        
-        if (data.rates) {
-          setRates(data.rates);
-        }
-      } catch (error) {
-        console.error('Error fetching rates:', error);
-      } finally {
-        setLoading(false);
+      if (!response.ok) {
+        throw new Error('Request failed');
       }
-    };
 
+      const data = await response.json();
+      
+      if (data.rates) {
+        setRates(data.rates);
+      } else {
+        setRates({});
+      }
+    } catch (error) {
+      console.error('Error fetching rates:', error);
+      setRates({});
+      setError('No se pudieron cargar las tasas. Intenta nuevamente.');
+    } finally {
+      setLoading(false);
+    }
+  }, [selectedBase, selectedTargets]);
+
+  useEffect(() => {
     fetchRates();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [selectedBase, selectedTargets.join(',')]); // Use join to compare array values
+  }, [fetchRates]);
 
-  const rows = selectedTargets
-    .filter(code => rates[code]) // Solo mostrar monedas con tasa disponible
-    .map((code) => {
+  const availableTargets = selectedTargets.filter(code => rates[code]);
+
+  const rows = availableTargets.map((code) => {
       const rate = rates[code];
       const result = amount * rate;
       const currency = currencies.find(c => c.code === code);
@@ -99,7 +110,7 @@ export function MultiCurrencyComparator({
           </Table.Td>
         </Table.Tr>
       );
-    });
+  });
 
   return (
     <Paper shadow="sm" p="md" radius="md" withBorder>
@@ -189,19 +200,34 @@ export function MultiCurrencyComparator({
           )
         ) : (
           <>
+            {error && (
+              <Alert color="red" title="Error" withCloseButton={false}>
+                <Stack gap="sm">
+                  <Text size="sm">{error}</Text>
+                  <Button size="xs" variant="light" onClick={fetchRates}>
+                    Reintentar
+                  </Button>
+                </Stack>
+              </Alert>
+            )}
             <Text size="sm" fw={500} style={{ color: 'var(--mantine-color-gray-6)' }}>
               {t.multiComparator.showing
                 .replace('{amount}', formatCurrency(amount))
                 .replace('{currency}', selectedBase)
                 .replace('{count}', rows.length.toString())}
             </Text>
-            
+
+            {!error && selectedTargets.length > 0 && availableTargets.length === 0 && (
+              <Text size="sm" fw={500} style={{ color: 'var(--mantine-color-gray-6)' }}>
+                Sin resultados
+              </Text>
+            )}
+
             {isMobile ? (
               // Mobile: Cards layout
               <Stack gap="sm">
-                {selectedTargets.map((code) => {
+                {availableTargets.map((code) => {
                   const rate = rates[code];
-                  if (!rate) return null;
                   
                   const result = amount * rate;
                   const currency = currencies.find(c => c.code === code);
